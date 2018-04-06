@@ -1,33 +1,33 @@
-py-radix
-========
+ppy-radix
+=========
 
-.. image:: https://travis-ci.org/mjschultz/py-radix.svg?branch=master
-   :target: https://travis-ci.org/mjschultz/py-radix
+ppy-radix is a pure-Python fork of py-radix_, which implements the radix tree
+data structure for the storage andretrieval of IPv4 and IPv6 network prefixes.
 
-.. image:: https://coveralls.io/repos/mjschultz/py-radix/badge.png?branch=master
-   :target: https://coveralls.io/r/mjschultz/py-radix?branch=master
-
-py-radix implements the radix tree data structure for the storage and
-retrieval of IPv4 and IPv6 network prefixes.
+.. _py-radix: https://github.com/mjschultz/py-radix
 
 The radix tree is commonly used for routing table lookups. It efficiently
 stores network prefixes of varying lengths and allows fast lookups of
 containing networks.
+
+(In this fork, the C implementation has been removed in order to simplify use
+with AWS Lambda in non-performance-critical cases. Otherwise this fork tracks
+the upstream py-radix repo. The better solution would be to build a
+`manylinux1 wheel`__ for py-radix.)
+
+.. _manylinux1 wheel: https://github.com/mjschultz/py-radix/issues/30
 
 Installation
 ------------
 
 Installation is a breeze via pip: ::
 
-    pip install py-radix
+    pip install ppy-radix
 
 Or with the standard Python distutils incantation: ::
 
 	python setup.py build
 	python setup.py install
-
-The C extension will be built for supported python versions. If you do not
-want the C extension, set the environment variable ``RADIX_NO_EXT=1``.
 
 Tests are in the ``tests/`` directory and can be run with
 ``python setup.py nosetests``.
@@ -117,22 +117,21 @@ A simple example that demonstrates most of the features: ::
 License
 -------
 
-py-radix is licensed under a ISC/BSD licence. The underlying radix tree 
-implementation is taken (and modified) from MRTd and is subject to a 4-term 
-BSD license. See the LICENSE file for details.
+ppy-radix, like py-radix, is licensed under a ISC/BSD licence. The underlying
+radix tree implementation is taken (and modified) from MRTd and is subject to
+a 4-term BSD license. See the LICENSE file for details.
 
 Contributing
 ------------
 
-Please report bugs via GitHub at https://github.com/mjschultz/py-radix/issues.
+Please report bugs via GitHub to the original py-radix project at
+https://github.com/mjschultz/py-radix/issues.
 Code changes can be contributed through a pull request on GitHub or emailed
-directly to me <mjschultz@gmail.com>.
+directly to the upstream author <mjschultz@gmail.com>.
 
 The main portions of the directory tree are as follows: ::
 
     .
     ├── radix/*.py      # Pure Python code
-    ├── radix/_radix.c  # C extension code (compatible with pure python code)
-    ├── radix/_radix/*  # C extension code (compatible with pure python code)
     ├── tests/          # Tests (regression and unit)
     └── setup.py        # Standard setup.py for installation/testing/etc.

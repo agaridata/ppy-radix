@@ -11,20 +11,12 @@ here = abspath(dirname(__file__))
 
 # determine the python version
 IS_PYPY = hasattr(sys, 'pypy_version_info')
-RADIX_NO_EXT = os.environ.get('RADIX_NO_EXT', '0')
-RADIX_NO_EXT = True if RADIX_NO_EXT not in ('0', 'false', 'False') else False
 
 with codecs.open(join(here, 'README.rst'), encoding='utf-8') as f:
     README = f.read()
 
 # introduce some extra setup_args if Python 2.x
 extra_kwargs = {}
-if not IS_PYPY and not RADIX_NO_EXT:
-    sources = ['radix/_radix.c', 'radix/_radix/radix.c']
-    radix = Extension('radix._radix',
-                      sources=sources,
-                      include_dirs=[join(here, 'radix')])
-    extra_kwargs['ext_modules'] = [radix]
 
 
 tests_require = ['nose', 'coverage']
@@ -33,12 +25,12 @@ if sys.version_info < (2, 7):
 
 
 setup(
-    name='py-radix',
+    name='ppy-radix',
     version='0.10.0',
-    maintainer='Michael J. Schultz',
-    maintainer_email='mjschultz@gmail.com',
-    url='https://github.com/mjschultz/py-radix',
-    description='Radix tree implementation',
+    maintainer='Agari Engineering',
+    maintainer_email='eng-team@agari.com',
+    url='https://github.com/agaridata/ppy-radix',
+    description='Pure-Python radix tree implementation',
     long_description=README,
     license='BSD',
     keywords='radix tree trie python routing networking',
